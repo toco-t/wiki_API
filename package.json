@@ -1,0 +1,24 @@
+{
+  "name": "wiki_api",
+  "version": "1.0.0",
+  "description": "Simple RESTful API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toco-t/wiki_API.git"
+  },
+  "author": "Toco Tachibana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toco-t/wiki_API/issues"
+  },
+  "homepage": "https://github.com/toco-t/wiki_API#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.6"
+  }
+}
