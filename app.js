@@ -20,40 +20,43 @@ const articleSchema = new mongoose.Schema({
 
 const Article = mongoose.model("Article", articleSchema);
 
-app.get("/articles", (req, res) => {
-  Article.find({}, (err, foundArticles) => {
-    if (!err) {
-      res.send(foundArticles);
+app.route("/articles")
 
-      // Send articles to ejs file instead... -> res.render("index", {data: foundArticles});
-    } else {
-      res.send(err);
-    }
-  });
-});
+  .get((req, res) => {
+    Article.find({}, (err, foundArticles) => {
+      if (!err) {
+        res.send(foundArticles);
 
-app.post("/articles", (req, res) => {
-  Article.create({
-    title: req.body.title,
-    content: req.body.content
-  }, (err) => {
-    if (!err) {
-      res.send("Successfully added a new article!");
-    } else {
-      res.send(err);
-    }
-  });
-});
+        // Send articles to ejs file instead... -> res.render("index", {data: foundArticles});
+      } else {
+        res.send(err);
+      }
+    });
+  })
 
-app.delete("/articles", (req, res) => {
-  Article.deleteMany({}, (err) => {
-    if (!err) {
-      res.send("Successfully deleted all articles in the database...");
-    } else {
-      res.send(err);
-    }
+  .post((req, res) => {
+    Article.create({
+      title: req.body.title,
+      content: req.body.content
+    }, (err) => {
+      if (!err) {
+        res.send("Successfully added a new article!");
+      } else {
+        res.send(err);
+      }
+    });
+  })
+
+  .delete((req, res) => {
+    Article.deleteMany({}, (err) => {
+      if (!err) {
+        res.send("Successfully deleted all articles in the database...");
+      } else {
+        res.send(err);
+      }
+    });
   });
-});
+
 
 app.listen("3000", (req, res) => {
   console.log("Server is running on port 3000...");
