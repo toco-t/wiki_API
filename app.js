@@ -28,7 +28,7 @@ app.get("/articles", (req, res) => {
       // Send articles to ejs file instead... -> res.render("index", {data: foundArticles});
     } else {
       res.send(err);
-    };
+    }
   });
 });
 
@@ -41,7 +41,17 @@ app.post("/articles", (req, res) => {
       res.send("Successfully added a new article!");
     } else {
       res.send(err);
-    };
+    }
+  });
+});
+
+app.delete("/articles", (req, res) => {
+  Article.deleteMany({}, (err) => {
+    if (!err) {
+      res.send("Successfully deleted all articles in the database...");
+    } else {
+      res.send(err);
+    }
   });
 });
 
