@@ -23,9 +23,24 @@ const Article = mongoose.model("Article", articleSchema);
 app.get("/articles", (req, res) => {
   Article.find({}, (err, foundArticles) => {
     if (!err) {
-      res.render("index", {data: foundArticles});
+      res.send(foundArticles);
+
+      // Send articles to ejs file instead... -> res.render("index", {data: foundArticles});
     } else {
-      console.log(err);
+      res.send(err);
+    };
+  });
+});
+
+app.post("/articles", (req, res) => {
+  Article.create({
+    title: req.body.title,
+    content: req.body.content
+  }, (err) => {
+    if (!err) {
+      res.send("Successfully added a new article!");
+    } else {
+      res.send(err);
     };
   });
 });
