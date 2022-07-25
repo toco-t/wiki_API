@@ -20,6 +20,7 @@ const articleSchema = new mongoose.Schema({
 
 const Article = mongoose.model("Article", articleSchema);
 
+////////// Requests tartgeting all articles //////////
 app.route("/articles")
 
   .get((req, res) => {
@@ -56,6 +57,20 @@ app.route("/articles")
       }
     });
   });
+
+
+////////// Requests tartgeting a specific article //////////
+app.route("/articles/:articleTitle")
+
+.get((req, res) => {
+  Article.findOne({title: req.params.articleTitle}, (err, foundArticle) => {
+    if (foundArticle) {
+      res.send(foundArticle);
+    } else {
+      res.send("No articles matching that title was found...");
+    }
+  });
+});
 
 
 app.listen("3000", (req, res) => {
