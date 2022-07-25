@@ -62,16 +62,42 @@ app.route("/articles")
 ////////// Requests tartgeting a specific article //////////
 app.route("/articles/:articleTitle")
 
-.get((req, res) => {
-  Article.findOne({title: req.params.articleTitle}, (err, foundArticle) => {
-    if (foundArticle) {
-      res.send(foundArticle);
-    } else {
-      res.send("No articles matching that title was found...");
-    }
-  });
-});
+  .get((req, res) => {
+    Article.findOne({title: req.params.articleTitle}, (err, foundArticle) => {
+      if (foundArticle) {
+        res.send(foundArticle);
+      } else {
+        res.send("No articles matching that title was found...");
+      }
+    });
+  })
 
+  // .put((req, res) => {
+  //   Article.findOneAndUpdate(
+  //     {title: req.params.articleTitle},
+  //     {title: req.body.title, content: req.body.content},
+  //     (err, updatedArticle) => {
+  //     if (!err) {
+  //       res.send("Successfully replaced the document!");
+  //     } else {
+  //       res.send(err);
+  //     }
+  //   });
+  // })
+
+  .patch((req, res) => {
+    Article.findOneAndUpdate(
+      {title: req.params.articleTitle},
+      {$set: req.body},
+      (err, updatedArticle) => {
+        if (!err) {
+          res.send("Successfully updated the document!");
+        } else {
+          res.send(err);
+        }
+      }
+    );
+  });
 
 app.listen("3000", (req, res) => {
   console.log("Server is running on port 3000...");
