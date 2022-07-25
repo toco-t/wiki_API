@@ -78,7 +78,7 @@ app.route("/articles/:articleTitle")
   //     {title: req.body.title, content: req.body.content},
   //     (err, updatedArticle) => {
   //     if (!err) {
-  //       res.send("Successfully replaced the document!");
+  //       res.send("Successfully replaced the article!");
   //     } else {
   //       res.send(err);
   //     }
@@ -91,13 +91,23 @@ app.route("/articles/:articleTitle")
       {$set: req.body},
       (err, updatedArticle) => {
         if (!err) {
-          res.send("Successfully updated the document!");
+          res.send("Successfully updated the article!");
         } else {
           res.send(err);
         }
       }
     );
+  })
+
+.delete((req, res) => {
+  Article.deleteOne({title: req.params.articleTitle}, (err) => {
+    if (!err) {
+      res.send("Successfully deleted the article in the database!");
+    } else {
+      res.send(err);
+    }
   });
+});
 
 app.listen("3000", (req, res) => {
   console.log("Server is running on port 3000...");
